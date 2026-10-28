@@ -1,0 +1,142 @@
+Setting Up Git & GitHub
+Aim: To configure Git and connect a local repository to GitHub.
+Procedure: Check Git, configure your identity, create a local repository, commit README.md, and push to GitHub.
+Commands to copy into Git Bash
+git --version          
+git config --global user.name "Ganavi"
+git config --global user.email "YOUR_EMAIL"
+mkdir git-lab-demo
+cd git-lab-demo
+git init
+echo "# Git Lab Demo" > README.md
+git add README.md
+git commit -m "First commit"
+git branch -M main
+git remote add origin https://github.com/ganavip73-arch/git-lab-demo.git
+git push -u origin main
+Expected output
+git version 2.x.x
+Initialized empty Git repository
+[main (root-commit) abc1234] First commit
+1 file changed, 1 insertion(+)
+[new branch] main -> main
+branch 'main' set up to track 'origin/main'.
+Result: Git was configured and the local repository was connected to GitHub
+
+Basic Git Workflow (Add, Commit, Push)
+Aim: To create and execute a Python program and upload it to GitHub.
+Procedure: Create hello.py, run it, check the status, stage the file, commit it, and push the commit.
+Commands to copy into Git Bash
+echo "print('Hello Git')" > hello.py
+python hello.py
+git status
+git add hello.py
+git commit -m "Add hello Python program"
+git push origin main
+Expected output
+Hello Git
+[main abc1234] Add hello Python program
+1 file changed, 1 insertion(+)
+To https://github.com/ganavip73-arch/git-lab-demo.git
+   abc1234..def5678  main -> main
+Result: The Python program was executed, committed, and pushed to GitHub.
+
+Creating and Managing Branches
+Aim: To create and manage a feature branch.
+Procedure: Switch to main, create feature-branch, create and run feature.py, commit the file, push the branch, and list branches.
+Commands to copy into Git Bash
+git switch main
+git switch -c feature-branch
+echo "print('Hello from Feature Branch')" > feature.py
+python feature.py
+git add feature.py
+git commit -m "Add feature branch Python program"
+git push -u origin feature-branch
+git branch
+Expected output
+Switched to a new branch 'feature-branch'
+Hello from Feature Branch
+[feature-branch abc1234] Add feature branch Python program
+1 file changed, 1 insertion(+)
+* feature-branch
+  main
+Result: A feature branch was created, and the Python program was committed and pushed.
+
+
+Collaborating with Pull Requests
+Aim: To merge changes from a feature branch into main using a GitHub pull request.
+Procedure: Push the feature branch, create a pull request on GitHub from feature-branch into main, merge it, and pull the updated main branch locally.
+Commands to copy into Git Bash
+git switch feature-branch
+git push -u origin feature-branch
+ 
+# On GitHub: Pull requests > New pull request
+# Base: main; Compare: feature-branch
+# Create pull request > Merge pull request > Confirm merge
+ 
+git switch main
+git pull origin main
+git status
+git log --oneline -5
+Expected output
+Updating abc1234..def5678
+Fast-forward
+ feature.py | 1 +
+ 1 file changed, 1 insertion(+)
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+Result: The feature branch changes were merged into main using a pull request.
+
+
+Stashing Changes
+Aim: To temporarily save and restore uncommitted changes.
+Procedure: Create and commit a baseline file, append a second line, stash the change, inspect the stash, then restore it.
+Commands to copy into Git Bash
+git switch main
+echo "print('Experiment 5 - Original Version')" > stash_demo.py
+git add stash_demo.py
+git commit -m "Add stash demo program"
+git push origin main
+ 
+echo "print('This change is temporarily saved')" >> stash_demo.py
+git stash push -m "Experiment 5 changes"
+git stash list
+ 
+git stash pop
+cat stash_demo.py
+git status
+Expected output
+Saved working directory and index state
+On main: Experiment 5 changes
+stash@{0}: On main: Experiment 5 changes
+Dropped refs/stash@{0}
+print('Experiment 5 - Original Version')
+print('This change is temporarily saved')
+Changes not staged for commit:
+    modified: stash_demo.py
+Result: The uncommitted changes were stashed and restored successfully.
+
+
+Cloning a Remote Repository
+Aim: To copy a remote GitHub repository to a local computer.
+Procedure: Move to the home directory, clone the GitHub repository into a new folder, enter it, and inspect status, files, and remote URLs.
+Commands to copy into Git Bash
+cd ~
+git clone https://github.com/ganavip73-arch/git-lab-demo.git git-lab-clone
+cd git-lab-clone
+git status
+ls
+git remote -v
+Expected output
+Cloning into 'git-lab-clone'...
+Receiving objects: 100% (...), done.
+Resolving deltas: 100% (...), done.
+On branch main
+Your branch is up to date with 'origin/main'.
+nothing to commit, working tree clean
+README.md  feature.py  hello.py  stash_demo.py
+origin  https://github.com/ganavip73-arch/git-lab-demo.git (fetch)
+origin  https://github.com/ganavip73-arch/git-lab-demo.git (push)
+Result: The GitHub repository was cloned successfully to the local computer.
+
